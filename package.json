@@ -1,6 +1,6 @@
 {
   "name": "@laufire/kafka-router",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Project description.",
   "main": "./dist/index.js",
   "scripts": {
@@ -53,7 +53,9 @@
     },
     "resetMocks": true,
     "resetModules": true,
-    "setupFilesAfterEnv": ["./test/setup/jest.setup.js"],
+    "setupFilesAfterEnv": [
+      "./test/setup/jest.setup.js"
+    ],
     "transform": {
       "^.+\\.js?$": "babel-jest"
     }
