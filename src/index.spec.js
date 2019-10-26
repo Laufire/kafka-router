@@ -1,8 +1,8 @@
 /* Mocks and Stubs */
 const testConfig = Symbol('config');
-const testHandler = Symbol('subscription');
+const testHandler = Symbol('handler');
 const testTopicName = 'testTopic';
-const subscriptions = {
+const routes = {
 	[testTopicName]: testHandler,
 };
 const mockSubscribe = jest.fn();
@@ -21,7 +21,7 @@ describe('kafkaRouter', () => {
 		mockGetSubscriber.mockReturnValue(mockSubscribe);
 		const router = kafkaRouter(testConfig);
 
-		router(subscriptions);
+		router(routes);
 		expect(mockKafkaClient.getSubscriber).toBeCalledWith(testConfig);
 		expect(mockSubscribe).toBeCalledWith({
 			topic: testTopicName,

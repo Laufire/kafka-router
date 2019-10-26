@@ -15,7 +15,7 @@ const getSubscriber = ({
 	};
 
 	return ({ topic, handler }) => {
-		logger.info(`Setting up the topic: ${ topic }.`);
+		logger.info(`Preparing the consumer for the topic: ${ topic }`);
 
 		const consumer = new nodeKafka.KafkaConsumer(extendedKafkaConfig);
 
