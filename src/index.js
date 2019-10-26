@@ -1,13 +1,15 @@
-/* The main entry. */
+import logger from './base/logger';
+import kafkaClient from './kafkaClient';
 
-import { config } from './base/config';
-import { logger } from './base/logger';
+/* Exports */
+const kafkaRouter = (config) => (subscriptions) => {
+	const { getSubscriber } = kafkaClient;
+	const subscribe = getSubscriber(config);
 
-/* Tasks */
-const main = () => {
-	logger.info(`Starting in ${ config.environment } environment.`);
+	Object.entries(subscriptions).forEach(([topic, handler]) => {
+		logger.info(`Setting up the subscription: ${ topic }`);
+		subscribe({ topic, handler });
+	});
 };
 
-export {
-	main,
-};
+export default kafkaRouter;

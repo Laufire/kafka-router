@@ -8,6 +8,4 @@ const config = {
 	environment: nodeEnv,
 };
 
-export {
-	config,
-};
+export default config;

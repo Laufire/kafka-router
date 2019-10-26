@@ -1,14 +1,31 @@
 /* Mocks and Stubs */
-jest.mock('./base/logger');
-import { logger } from "./base/logger";
+const testConfig = Symbol('config');
+const testHandler = Symbol('subscription');
+const testTopicName = 'testTopic';
+const subscriptions = {
+	[testTopicName]: testHandler,
+};
+const mockSubscribe = jest.fn();
+const mockGetSubscriber = jest.fn();
+const mockKafkaClient = {
+	getSubscriber: mockGetSubscriber,
+};
 
-/* Tests */
-import { main } from '.';
+jest.mock('./kafkaClient', () => mockKafkaClient);
 
-describe('the package', () => {
-	test('the main entry point', () => {
-		main();
+/* Tested */
+const kafkaRouter = require('.').default;
 
-		expect(logger.info).toHaveBeenCalledWith(expect.any(String));
+describe('kafkaRouter', () => {
+	test('kafkaRouter returns a router with the given config.', () => {
+		mockGetSubscriber.mockReturnValue(mockSubscribe);
+		const router = kafkaRouter(testConfig);
+
+		router(subscriptions);
+		expect(mockKafkaClient.getSubscriber).toBeCalledWith(testConfig);
+		expect(mockSubscribe).toBeCalledWith({
+			topic: testTopicName,
+			handler: testHandler,
+		});
 	});
 });

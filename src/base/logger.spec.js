@@ -2,10 +2,9 @@
 const mockConfigModule = {};
 const mockPino = jest.fn();
 
-jest.mock('./config', () => ({
-	config: mockConfigModule,
-}));
+jest.mock('./config', () => mockConfigModule);
 jest.mock('pino', () => mockPino);
+jest.unmock('./logger');
 
 /* Tests */
 describe('the logger', () => {

@@ -1,5 +1,5 @@
 import pino from 'pino';
-import { config } from './config';
+import config from './config';
 
 /* State */
 const { environment } = config;
@@ -16,6 +16,4 @@ const logger = pino({
 		: defaultPrettyPrintConfig,
 });
 
-export {
-	logger,
-};
+export default logger;

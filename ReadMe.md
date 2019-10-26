@@ -1,6 +1,6 @@
 # kafka-router
 
-	A simple router for kafka-messages.
+	A simple node.js router for kafka-messages.
 
 ## Installation
 ```sh
