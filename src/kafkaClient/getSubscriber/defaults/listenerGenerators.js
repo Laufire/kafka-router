@@ -14,7 +14,7 @@ const listenerGenerators = {
 			const payload = JSON.parse(message.value.toString());
 
 			logger.info(`Handling an event for the topic ${ topic }`, { payload });
-			handler(payload);
+			handler(payload, message);
 		}
 		catch (e) {
 			consumer.emit('error', e);

@@ -42,7 +42,7 @@ describe('listenerGenerators', () => { // eslint-disable-line max-lines-per-func
 			handler: mockHandler,
 		});
 		const mockValueString = Symbol('Some Value');
-		const message = { value: {
+		const mockMessage = { value: {
 			toString: () => mockValueString,
 		}};
 		const mockPayload = Symbol('payload');
@@ -51,12 +51,12 @@ describe('listenerGenerators', () => { // eslint-disable-line max-lines-per-func
 		mockParseFn.mockReturnValue(mockPayload);
 		JSON.parse = mockParseFn;
 
-		dataListener(message);
+		dataListener(mockMessage);
 
-		expect(mockConsumer.commit).toHaveBeenCalledWith(message);
+		expect(mockConsumer.commit).toHaveBeenCalledWith(mockMessage);
 		expect(logger.info).toHaveBeenCalledWith(expect.any(String));
 		expect(mockParseFn).toHaveBeenCalledWith(mockValueString);
-		expect(mockHandler).toHaveBeenCalledWith(mockPayload);
+		expect(mockHandler).toHaveBeenCalledWith(mockPayload, mockMessage);
 	});
 
 	test('errors data handler are handled by'
