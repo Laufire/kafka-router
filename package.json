@@ -33,7 +33,6 @@
     "eslint": "^5.16.0",
     "jest": "^24.9.0",
     "jest-cli": "^24.9.0",
-    "pino-pretty": "^3.2.2",
     "regenerator-runtime": "^0.13.2"
   },
   "jest": {
@@ -60,12 +59,10 @@
     }
   },
   "directories": {
-    "example": "examples",
     "test": "test"
   },
   "dependencies": {
-    "node-rdkafka": "^2.7.1-2",
-    "pino": "^5.13.4"
+    "node-rdkafka": "^2.7.1-2"
   },
   "bugs": {
     "url": "https://github.com/Laufire/kafka-router/issues"
