@@ -20,4 +20,4 @@ $ sh ./setup.sh
 
 ## ToDo
 
-* **None, yet.**
+* Disconnect the Kafka Consumers properly.
