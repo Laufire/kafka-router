@@ -1,4 +1,5 @@
 import nodeKafka from 'node-rdkafka';
+
 import logger from '../../base/logger';
 import defaults from './defaults';
 
@@ -13,10 +14,10 @@ const getSubscriber = ({
 		...listenerGenerators,
 	};
 
-	const consumer = new nodeKafka.KafkaConsumer(extendedKafkaConfig);
-
 	return ({ topic, handler }) => {
 		logger.info(`Preparing the consumer for the topic: ${ topic }`);
+
+		const consumer = new nodeKafka.KafkaConsumer(extendedKafkaConfig);
 
 		Object.entries(extendedGenerators).forEach(([event, generator]) =>
 			consumer.on(event, generator({ consumer, handler, topic })));
