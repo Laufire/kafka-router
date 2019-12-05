@@ -1,13 +1,13 @@
 import logger from '../../../base/logger';
 
 const listenerGenerators = {
-	ready: ({ consumer, topic }) => () => {
+	'ready': ({ consumer, topic }) => () => {
 		logger.info(`Subscribing to the topic: ${ topic }`);
 		consumer.subscribe([topic]);
 		consumer.consume();
 	},
 
-	data: ({ consumer, topic, handler }) => (message) => {
+	'data': ({ consumer, topic, handler }) => (message) => {
 		consumer.commit(message);
 		logger.info(`Event from the topic ${ topic }`);
 		try {
@@ -21,11 +21,11 @@ const listenerGenerators = {
 		}
 	},
 
-	disconnected: ({ topic }) => () => {
+	'disconnected': ({ topic }) => () => {
 		logger.error(`Consumer disconnected from the topic: ${ topic }`);
 	},
 
-	error: ({ topic }) => (err) => {
+	'event.error': ({ topic }) => (err) => {
 		logger.error({
 			message: `Error from the topic: ${ topic }`,
 			err: err,

@@ -89,7 +89,7 @@ describe('listenerGenerators', () => { // eslint-disable-line max-lines-per-func
 
 	test('error generates a handler for '
 		+ 'the event of the same name.', () => {
-		const errorListener = listenerGenerators.error({
+		const errorListener = listenerGenerators['event.error']({
 			topic: mockTopic,
 		});
 		const mockError = Symbol('mockError');
