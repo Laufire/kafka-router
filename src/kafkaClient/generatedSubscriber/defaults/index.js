@@ -1,4 +1,4 @@
-import kafkaConfig from './kafkaConfig';
+import kafkaConfig from '../../defaults/kafkaConfig';
 import listenerGenerators from './listenerGenerators';
 
 const defaults = {
