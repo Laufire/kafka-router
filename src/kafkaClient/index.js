@@ -1,8 +1,8 @@
-import getSubscriber from './getSubscriber';
+import generatedSubscriber from './generatedSubscriber';
 
 /* Exports */
 const kafkaClient = {
-	getSubscriber,
+	generatedSubscriber,
 };
 
 export default kafkaClient;

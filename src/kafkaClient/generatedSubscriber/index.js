@@ -4,7 +4,7 @@ import logger from '../../base/logger';
 import defaults from './defaults';
 
 /* Exports */
-const getSubscriber = ({
+const generatedSubscriber = ({
 	kafkaConfig = {},
 	listenerGenerators = {},
 }) => {
@@ -26,4 +26,4 @@ const getSubscriber = ({
 	};
 };
 
-export default getSubscriber;
+export default generatedSubscriber;

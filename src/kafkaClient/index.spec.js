@@ -1,13 +1,13 @@
 describe('kafkaClient', () => {
 	test('kafkaClient is just a container for some key methods.', () => {
-		const mockGetSubscriber = Symbol('getSubscriber');
+		const mockgeneratedSubscriber = Symbol('generatedSubscriber');
 
-		jest.mock('./getSubscriber', () => mockGetSubscriber);
+		jest.mock('./generatedSubscriber', () => mockgeneratedSubscriber);
 
 		const kafkaClient = require('.').default;
 
 		expect(kafkaClient).toEqual({
-			getSubscriber: mockGetSubscriber,
+			generatedSubscriber: mockgeneratedSubscriber,
 		});
 	});
 });

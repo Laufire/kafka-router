@@ -26,7 +26,7 @@ const customListGenerators = {
 mockListenerGenerator.mockReturnValue(mockListenerGeneratorVal);
 customListGenerator.mockReturnValue(customListGeneratorVal);
 
-describe('getSubscriber', () => {
+describe('generatedSubscriber', () => {
 	beforeEach(() => {
 		jest.mock('node-rdkafka', () => mockNodeKafka);
 		mockKafkaConsumer.mockImplementation(() => mockConsumer);
@@ -34,14 +34,14 @@ describe('getSubscriber', () => {
 			() => mockListenerGenerators);
 	});
 
-	test('getSubscriber sets up a kafkaConsumer with'
+	test('generatedSubscriber sets up a kafkaConsumer with'
 		+ ' the provided config extended with defaults.', () => {
-		const getSubscriber = require('.').default;
+		const generatedSubscriber = require('.').default;
 		const defaults = require('./defaults').default;
 		const customKafkaConfig = {
 			customConfigValue: Symbol('customConfigValue'),
 		};
-		const subscriber = getSubscriber({
+		const subscriber = generatedSubscriber({
 			kafkaConfig: customKafkaConfig,
 			listenerGenerators: customListGenerators,
 		});
@@ -74,9 +74,9 @@ describe('getSubscriber', () => {
 		expect(mockConsumer.connect).toHaveBeenCalled();
 	});
 
-	test('getSubscriber config values are optional.', () => {
-		const getSubscriber = require('.').default;
+	test('generatedSubscriber config values are optional.', () => {
+		const generatedSubscriber = require('.').default;
 
-		getSubscriber({});
+		generatedSubscriber({});
 	});
 });

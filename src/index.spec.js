@@ -6,9 +6,9 @@ const routes = {
 	[testTopicName]: testHandler,
 };
 const mockSubscribe = jest.fn();
-const mockGetSubscriber = jest.fn();
+const mockgeneratedSubscriber = jest.fn();
 const mockKafkaClient = {
-	getSubscriber: mockGetSubscriber,
+	generatedSubscriber: mockgeneratedSubscriber,
 };
 
 jest.mock('./kafkaClient', () => mockKafkaClient);
@@ -18,11 +18,11 @@ const kafkaRouter = require('.').default;
 
 describe('kafkaRouter', () => {
 	test('kafkaRouter returns a router with the given config.', () => {
-		mockGetSubscriber.mockReturnValue(mockSubscribe);
+		mockgeneratedSubscriber.mockReturnValue(mockSubscribe);
 		const router = kafkaRouter(testConfig);
 
 		router(routes);
-		expect(mockKafkaClient.getSubscriber).toBeCalledWith(testConfig);
+		expect(mockKafkaClient.generatedSubscriber).toBeCalledWith(testConfig);
 		expect(mockSubscribe).toBeCalledWith({
 			topic: testTopicName,
 			handler: testHandler,
