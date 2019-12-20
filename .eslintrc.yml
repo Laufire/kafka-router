@@ -49,7 +49,7 @@ rules:
     - error
     - min: 1
       max: 24
-  id-match: ["error", "^[a-z]+([A-Z][a-z]+)*$"]
+  id-match: ["error", "^[a-z]+([A-Z]([a-z]|[A-Z])+)*$"]
   key-spacing: ["error", { "beforeColon": false, "afterColon": true }]
   keyword-spacing: ["error", {
     "after": true,

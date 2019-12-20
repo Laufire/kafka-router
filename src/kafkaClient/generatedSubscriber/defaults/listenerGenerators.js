@@ -1,4 +1,5 @@
 import logger from '../../../base/logger';
+import parseJSON from '../../../utils/parseJSON';
 
 const listenerGenerators = {
 	'ready': ({ consumer, topic }) => () => {
@@ -11,7 +12,7 @@ const listenerGenerators = {
 		consumer.commit(message);
 		logger.info(`Event from the topic ${ topic }`);
 		try {
-			const payload = JSON.parse(message.value.toString());
+			const payload = parseJSON(message.value.toString());
 
 			logger.info(`Handling an event for the topic ${ topic }`, { payload });
 			handler(payload, message);
