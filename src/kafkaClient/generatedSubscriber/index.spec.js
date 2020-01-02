@@ -54,18 +54,16 @@ describe('generatedSubscriber', () => {
 			...customListGenerators,
 		};
 
-		const handler = Symbol('handler');
-		const topic = 'someTopic';
+		const routes = Symbol('routes');
 
-		subscriber({ handler, topic });
+		subscriber({ routes });
 
 		expect(mockKafkaConsumer).toBeCalledWith(extendedKafkaConfig);
 		Object.entries(extListenerGenerators)
 			.forEach(([event, generator], index) => {
 				expect(generator).toBeCalledWith({
 					consumer: mockConsumer,
-					handler: handler,
-					topic: topic,
+					routes: routes,
 				});
 				expect(mockConsumer.on).toHaveBeenNthCalledWith(
 					index + 1, event, generator()

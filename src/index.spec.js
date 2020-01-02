@@ -24,8 +24,7 @@ describe('kafkaRouter', () => {
 		router(routes);
 		expect(mockKafkaClient.generatedSubscriber).toBeCalledWith(testConfig);
 		expect(mockSubscribe).toBeCalledWith({
-			topic: testTopicName,
-			handler: testHandler,
+			routes,
 		});
 	});
 });

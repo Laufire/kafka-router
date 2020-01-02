@@ -12,8 +12,11 @@ const mockConsumer = {
 	commit: jest.fn(),
 	emit: jest.fn(),
 };
-const mockTopic = 'mockTopic';
+const mockRoute = 'mockRoute';
 const mockHandler = jest.fn();
+const mockRoutes = {
+	[mockRoute]: mockHandler,
+};
 
 /* Tests */
 describe('listenerGenerators', () => { // eslint-disable-line max-lines-per-function
@@ -24,13 +27,13 @@ describe('listenerGenerators', () => { // eslint-disable-line max-lines-per-func
 		+ 'the event of the same name.', () => {
 		const readyListener = listenerGenerators.ready({
 			consumer: mockConsumer,
-			topic: mockTopic,
+			routes: mockRoutes,
 		});
 
 		readyListener();
 
 		expect(logger.info).toHaveBeenCalledWith(expect.any(String));
-		expect(mockConsumer.subscribe).toHaveBeenCalledWith([mockTopic]);
+		expect(mockConsumer.subscribe).toHaveBeenCalledWith([mockRoute]);
 		expect(mockConsumer.consume).toHaveBeenCalled();
 	});
 
@@ -38,13 +41,16 @@ describe('listenerGenerators', () => { // eslint-disable-line max-lines-per-func
 		+ 'the event of the same name.', () => {
 		const dataListener = listenerGenerators.data({
 			consumer: mockConsumer,
-			topic: mockTopic,
+			routes: mockRoutes,
 			handler: mockHandler,
 		});
 		const mockValueString = Symbol('Some Value');
-		const mockMessage = { value: {
-			toString: () => mockValueString,
-		}};
+		const mockMessage = {
+			topic: mockRoute,
+			value: {
+				toString: () => mockValueString,
+			},
+		};
 		const mockPayload = Symbol('payload');
 		const mockParseFn = jest.fn();
 
@@ -64,13 +70,17 @@ describe('listenerGenerators', () => { // eslint-disable-line max-lines-per-func
 		const customError = new Error('CustomError');
 		const dataListener = listenerGenerators.data({
 			consumer: mockConsumer,
-			topic: mockTopic,
-			handler: () => {
-				throw customError;
+			routes: {
+				[mockRoute]: () => {
+					throw customError;
+				},
 			},
 		});
 
-		dataListener({ value: '{}' });
+		dataListener({
+			topic: mockRoute,
+			value: '{}',
+		});
 
 		expect(mockConsumer.emit)
 			.toHaveBeenCalledWith('error', customError);
@@ -79,7 +89,7 @@ describe('listenerGenerators', () => { // eslint-disable-line max-lines-per-func
 	test('disconnected generates a handler for '
 		+ 'the event of the same name.', () => {
 		const disconnectedListener = listenerGenerators.disconnected({
-			topic: mockTopic,
+			routes: mockRoutes,
 		});
 
 		disconnectedListener();
@@ -90,7 +100,7 @@ describe('listenerGenerators', () => { // eslint-disable-line max-lines-per-func
 	test('error generates a handler for '
 		+ 'the event of the same name.', () => {
 		const errorListener = listenerGenerators['event.error']({
-			topic: mockTopic,
+			routes: mockRoutes,
 		});
 		const mockError = Symbol('mockError');
 
